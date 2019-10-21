@@ -1,0 +1,58 @@
+# Brain MRI analysis for Alzheimer’s disease diagnosis using an ensemble system of deep convolutional
+# neural networks
+
+# Notation
+structural and functional magnetic resonance imag-ing  (sMRI,  fMRI),  position  emission  tomography  (PET),  single  photon  emission  computed  tomography  (SPECT)  and   diffusion   tensor   imaging   (DTI)   scan
+
+# Techniques
+A  classic  magnetic  resonance  imaging  (MRI)-based  automated  AD  diagnostic  system  has  mainly  two  build-ing  blocks—feature/biomarker  extraction  from  the  MRI  data  and  classifier  based  on  those  features/biomarkers
+
+# Approaches
+1) Voxel : based on a measurement of local tissue density of the brain. Voxel intensities are a feature. Issues = overfitting due to small datasets and ignore regional info.
+
+2) ROI : Extracts features from strucutruall/funtionally predefined regions of the brain. Low feature dimensinalty but these features dont capture subltely required to accuractey detect brain diseases. Requires an expert to label regions.
+
+3) Patch extraction: Divides image in sections and extracts features from each section. No expert knowledge/labelling required. Captures subtlies well, but still issues in selecting which patches to use.
+
+# ML methods atttempted
+- SVM
+- Logitstic regression variations
+- Dimensional reduction
+
+NOTE: Training a classi-fier independent from the feature extraction process may result  in  sub-optimal  performance  due  to  the  possible  heterogeneous nature of the classifier and feature
+
+# DL Methods
+- 2D and 3D CNNs
+https://arxiv.org/pdf/1502.02506.pdf
+
+# Data preprocessing
+- 3 crops from each image plane: axial  or  horizontal  plane,  coronal  or  frontal  plane,  and  sagit-tal or median plane.
+
+# Data split
+- Train = 80%, validation set = 10% of train
+- Test = 20%
+
+# Architecture
+All inputs shiffted to 0 mean and unit variance.
+Ensemble of three of these dense networks:
+-> Conv -> Batch Norm -> Relu -> Pool
+
+# Optimizer 
+SGD
+
+# Input
+The  input  MRI  is  3D  data,  and  our  proposed  model  is  a  2D  architecture,  so  we  devise  an  approach  to  con-vert the input data to 2D images. For each MRI data, we created  patches  from  three  physical  planes  of  imaging:  axial  or  horizontal  plane,  coronal  or  frontal  plane,  and  sagittal  or  median  plane.  These  patches  are  fed  to  the  proposed network as input. The size of each patch is 112*112
+
+# Output
+The  softmax  layers  have  four  different  output  classes:  non-demented,  very  mild,  mild  and  moderate  AD
+
+# Cost
+To handle the imbalance in the dataset, we used cost-sen-sitive  training  [85].  A  cost  matrix  ξ  was  used  to  modify  the  output  of  the  last  layer  of  the  individual  networks.  Since the less frequent classes (very mild dementia, mild dementia,   moderate   dementia)   are   underrepresented   in  the  training  dataset,  the  output  of  the  networks  was  modified using the cost matrix ξ to give more importance to these classes.
+
+# Qs
+- Cost matrix - formed?
+- How to improve?
+	- Focus on single area - hippocampus - take patch of just that region
+	- Benefit of passing voxel through 2 times - cropping based on ROI - activation
+- Activation map?
+
