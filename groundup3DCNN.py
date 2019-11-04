@@ -57,9 +57,9 @@ from sklearn.preprocessing import OneHotEncoder
 
 
 #Parameters (Modify as needed)
-channels = 62
-img_size_x = 96
-img_size_y = 96
+channels = 166
+img_size_x = 256
+img_size_y = 256
 
 batch_size = 128
 nb_classes = 3
