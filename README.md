@@ -1,2 +1,2 @@
 # cs230_MRI
-Ben's Branch
+Alzheimer's stage prediction from MRI scans 2D/3D 
