@@ -31,5 +31,5 @@ ssh -i PATH_TO_PEM_FILE -fNL 9000:localhost:8888 ubuntu@INSTANCE_IP_ADDRESS
 
 9000 is now the local port you can view the remote jupyter notebook on
 
-7. Open up your browser and enter: http://localhost:8888
+7. Open up your browser and enter: http://localhost:9000
 to view the remote jupoyter notebook.
